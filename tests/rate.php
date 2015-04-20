@@ -54,8 +54,6 @@ while ($cnt < 150)
 			$rate = $cnt / (time() - $s_time);
 		}
 
-		var_dump($reply);
-
 		echo "\n";
 		echo 'Stopped at query number '.$cnt."\n";
 		echo 'Average rate is '.$rate." queries per second\n";
