@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+/**
+ * HSDN PHP Whois Server Daemon
+ *
+ * @author      HSDN Team
+ * @copyright   (c) 2015, Information Networks Ltd.
+ * @link        http://www.hsdn.org
+ */
+
+(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') and die('This program cannot be run in Windows environment.');
+(PHP_SAPI === 'cli') or die('This program running available in CLI mode only.');
+
+set_time_limit(0);
+define('BINARY_PATH', realpath(dirname(__FILE__)));
+define('INCLUDE_PATH', BINARY_PATH.DIRECTORY_SEPARATOR.'include');
+chdir(BINARY_PATH.DIRECTORY_SEPARATOR);
+
+require_once INCLUDE_PATH.DIRECTORY_SEPARATOR.'Autoloader.php';
+
+\pWhoisd\Autoloader::register();
+\pWhoisd\Application::factory()->run();
