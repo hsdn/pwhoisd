@@ -56,7 +56,7 @@ The server can also be run using the startup rc-script. Script for FreeBSD syste
     load_rc_config $name
 
     : ${pwhoisd_enable="NO"}
-    : ${pwhoisd_conf="/usr/local/etc/pwhoisd.php"}
+    : ${pwhoisd_conf="/usr/local/etc/pwhoisd/config.php"}
     : ${pwhoisd_piddir="/var/run"}
 
     pidfile="${pwhoisd_piddir}/pwhoisd.pid"
