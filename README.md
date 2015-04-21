@@ -62,7 +62,7 @@ The server can also be run using the startup rc-script. Script for FreeBSD syste
     pidfile="${pwhoisd_piddir}/pwhoisd.pid"
     command_interpreter="php"
     command_args="--config=${pwhoisd_conf} --pidfile=${pidfile} --daemon"
-    command="/usr/local/bin/pwhoisd.phar"
+    command="/usr/local/sbin/pwhoisd.phar"
 
     run_rc_command "$1"
 
