@@ -135,7 +135,7 @@ Any one of the allowed units. Not to be used in IP rules. The allowed units are:
 
         // Allow all connections from IP 127.0.0.1.
         // It is owerride previous (bottom) 'deny' rule for this IP (limits do not works)
-        ['allow', ['client_ip', '127.0.0.1'] ],
+        ['allow', ['client_ip', '127.0.0.1']],
 
         // Deny any client if rate more 50 requests per one minute.
         ['deny', 'limit_exceeded', ['requests', '>', '50/min']],

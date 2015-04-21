@@ -86,7 +86,7 @@ class Application extends Daemon {
 		set_time_limit(0);
 
 		$this->set_exception_handlers();
-		$this->test_dependences();
+		$this->test_dependencies();
 		$this->assign_arguments();
 
 		if (!self::$arguments['daemon'])
@@ -115,12 +115,12 @@ class Application extends Daemon {
 	}
 
 	/**
-	 * Test application dependences.
+	 * Test application dependencies.
 	 *
 	 * @throws  \RuntimeException  If require dependence
 	 * @return  void
 	 */
-	private function test_dependences()
+	private function test_dependencies()
 	{
 		version_compare(PHP_VERSION, '5.4', '<') and die('Requires PHP 5.4 or newer.');
 
