@@ -1,16 +1,18 @@
 ## PHP Whois Server Daemon
 
-Simple and very performance Whois-server written on PHP, using multi-threaded architecture. There is support for database MySQL and flexible configuration of the data output format. There is also a good access control system based on ACL.
+Simple and very performance Whois server daemon, conforms to RFC 3912 and uses TCP port 43 (service "whois"). Written on PHP, using multi-threaded architecture. Daemon is supports MySQL database and flexible configuration of the data output format. There is also a good access control system based on ACL.
 
 ### General Features
+- Fully consistent with RFC 3912.
 - Multi-threaded architecture based on the functions PCNTL.
 - Storing data in a database MySQL (one or more data tables).
-- Full supports IPv6 protocol.
-- Powerful control system access and requests rate limits based on ACL.
-- Support for formatted output using standard functions php.
-- Support the use of flags in Whois requests to change the data-source or data output format.
+- Powerful control system of access and requests rate limits based on ACL.
+- To formatting Whois output, you can use the standard php functions and methods.
+- Supports special flags in client requests to change the data source or output format.
+- Fully supports IPv6 protocol (including ACLs). 
+- Saving log files with supports a different levels of logging.
 
-For complete information about the functionality of the server, see file: **src/config.php**.
+For complete information about functionality of the server, see file: **src/config.php**.
 
 ### System Requirements
 - php version 5.4.0 and above with POSIX functions support.
@@ -28,7 +30,7 @@ For complete information about the functionality of the server, see file: **src/
 5. Run the server for tests using the command: **php /usr/local/sbin/pwhoisd.phar --config=/usr/local/etc/pwhoisd/config.php**.
 6. Test the server by using the telnet or whois command: **whois -h 127.0.0.1 "hsdn.ru"** (you should get output as in the example below).
 
-#### Run the Server as a Daemon
+#### Running Server as a Daemon
 To start the server as a daemon, uses the command-line parameter **--daemon**. Optionally, you can specify the path to the PID-file by using the parameter **--pidfile=/var/run/pwhoisd.pid**.
 
 The server can also be run using the startup rc-script. Script for FreeBSD system will be as follows:
@@ -70,7 +72,7 @@ The server can also be run using the startup rc-script. Script for FreeBSD syste
 2. Set the permissions: **chmod 555 /usr/local/etc/rc.d/pwhoisd**.
 3. Run the server daemon using the command: **/usr/local/etc/rc.d/pwhoisd start**
 
-Note: correct the path to the files on your right paths and do not forget to add a line **pwhoisd_enable="YES"** to **/etc/rc.conf**.
+Note: correct path to the files on your right paths and do not forget to add a line **pwhoisd_enable="YES"** to **/etc/rc.conf**.
 
 #### Server Command Line Parameters
 Usage: **pwhoisd.phar** [--config=file] [--pidfile=file] [--uid=identifier] [--gid=identifier] [--daemon]
@@ -94,14 +96,14 @@ ACTION:
 - **deny** Print specified message to a client (optional) and drop the connection.
 - **drop** Silently drop a client connection. No messages is sent.
 
+MESSAGE:
+
+Here specify the name of the section in the messages array configuration.
+
 VARIABLE:
 - **client_ip** Client connection IP address (used for IP/subnets checks).
 - **requests** Used to specify a requests rate limit to the specific client connections.
 - **rate** Used to specify the global server requests rate limit for all clients connections.
-
-MESSAGE:
-
-Here specify the name of the section in the messages array configuration.
 
 OPERATOR:
 
