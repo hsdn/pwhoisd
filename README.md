@@ -4,10 +4,10 @@ Simple and very performance Whois server daemon, conforms to RFC 3912 and uses T
 
 ### General Features
 - Fully consistent with RFC 3912.
-- Multi-threaded architecture based on the functions PCNTL.
+- Multi-threaded architecture based on the PCNTL functions.
 - Storing data in a database MySQL (one or more data tables).
 - Powerful control system of access and requests rate limits based on ACL.
-- To formatting Whois output, you can use the standard php functions and methods.
+- To formatting Whois output uses the standard PHP functions and methods.
 - Supports special flags in client requests to change the data source or output format.
 - Fully supports IPv6 protocol (including ACLs). 
 - Saving log files with supports a different levels of logging.
@@ -15,11 +15,11 @@ Simple and very performance Whois server daemon, conforms to RFC 3912 and uses T
 For complete information about functionality of the server, see file: **src/config.php**.
 
 ### System Requirements
-- php version 5.4.0 and above with POSIX functions support.
-- php PCNTL extension.
-- php Filter extension.
-- php GMP or BCMATH extensions.
-- php Sockets extension.
+- PHP version 5.4.0 and above with POSIX functions support.
+- PCNTL PHP extension.
+- Filter PHP extension.
+- GMP or BCMATH PHP extensions.
+- Sockets PHP extension.
 
 ### Installation
 
@@ -98,7 +98,7 @@ ACTION:
 
 MESSAGE:
 
-Here specify the name of the section in the messages array configuration.
+Here specify the name of the section in messages array configuration.
 
 VARIABLE:
 - **client_ip** Client connection IP address (used for IP/subnets checks).
