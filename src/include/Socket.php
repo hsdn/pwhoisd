@@ -149,7 +149,7 @@ class Socket {
 	{
 		if (is_resource($this->socket))
 		{
-			if(@socket_listen($this->socket, 5) === FALSE)
+			if (@socket_listen($this->socket, 5) === FALSE)
 			{
 				throw new RuntimeException('Can\'t listen: '.socket_strerror(socket_last_error($this->socket)));
 			}
