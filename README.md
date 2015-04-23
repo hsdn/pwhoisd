@@ -34,40 +34,40 @@ For complete information about functionality of the server, see file: **src/conf
 To start the server as a daemon, uses the command-line parameter **--daemon**. Optionally, you can specify the path to the PID-file by using the parameter **--pidfile=/var/run/pwhoisd.pid**.
 
 The server can also be run using the startup rc-script. Script for FreeBSD system will be as follows:
+```sh
+#!/bin/sh
 
-    #!/bin/sh
+# PROVIDE: pwhoisd
+# REQUIRE: DAEMON
+# BEFORE:  LOGIN
+# KEYWORD: shutdown
 
-    # PROVIDE: pwhoisd
-    # REQUIRE: DAEMON
-    # BEFORE:  LOGIN
-    # KEYWORD: shutdown
+# Define these pwhoisd_* variables in one of these files:
+#       /etc/rc.conf
+#       /etc/rc.conf.local
+#
+# DO NOT CHANGE THESE DEFAULT VALUES HERE
+#
+pwhoisd_enable=${pwhoisd_enable-"NO"}
 
-    # Define these pwhoisd_* variables in one of these files:
-    #       /etc/rc.conf
-    #       /etc/rc.conf.local
-    #
-    # DO NOT CHANGE THESE DEFAULT VALUES HERE
-    #
-    pwhoisd_enable=${pwhoisd_enable-"NO"}
+. /etc/rc.subr
 
-    . /etc/rc.subr
+name="pwhoisd"
+rcvar=`set_rcvar`
 
-    name="pwhoisd"
-    rcvar=`set_rcvar`
+load_rc_config $name
 
-    load_rc_config $name
+: ${pwhoisd_enable="NO"}
+: ${pwhoisd_conf="/usr/local/etc/pwhoisd/config.php"}
+: ${pwhoisd_piddir="/var/run"}
 
-    : ${pwhoisd_enable="NO"}
-    : ${pwhoisd_conf="/usr/local/etc/pwhoisd/config.php"}
-    : ${pwhoisd_piddir="/var/run"}
+pidfile="${pwhoisd_piddir}/pwhoisd.pid"
+command_interpreter="php"
+command_args="--config=${pwhoisd_conf} --pidfile=${pidfile} --daemon"
+command="/usr/local/sbin/pwhoisd.phar"
 
-    pidfile="${pwhoisd_piddir}/pwhoisd.pid"
-    command_interpreter="php"
-    command_args="--config=${pwhoisd_conf} --pidfile=${pidfile} --daemon"
-    command="/usr/local/sbin/pwhoisd.phar"
-
-    run_rc_command "$1"
-
+run_rc_command "$1"
+```
 1. Copy this script into your rc.d directory **/usr/local/etc/rc.d/** with the name **pwhoisd**
 2. Set the permissions: **chmod 555 /usr/local/etc/rc.d/pwhoisd**.
 3. Run the server daemon using the command: **/usr/local/etc/rc.d/pwhoisd start**
@@ -128,24 +128,24 @@ Any one of the allowed units. Not to be used in IP rules. The allowed units are:
 - **day** Day(s).
 
 ##### ACL rules example:
+```php
+'rules' =>
+[
+    // Drop all connections if server rate more 20 requests per one seconds
+    // This rule will work with the previous rules (sets a global server rate limits).
+    ['drop', ['rate', '>', '20/sec']],
 
-    'rules' =>
-    [
-        // Drop all connections if server rate more 20 requests per one seconds
-        // This rule will work with the previous rules (sets a global server rate limits).
-        ['drop', ['rate', '>', '20/sec']],
+    // Allow all connections from IP 127.0.0.1.
+    // It is owerride previous (bottom) 'deny' rule for this IP (limits do not works)
+    ['allow', ['client_ip', '127.0.0.1']],
 
-        // Allow all connections from IP 127.0.0.1.
-        // It is owerride previous (bottom) 'deny' rule for this IP (limits do not works)
-        ['allow', ['client_ip', '127.0.0.1']],
+    // Deny any client if rate more 50 requests per one minute.
+    ['deny', 'limit_exceeded', ['requests', '>', '50/min']],
 
-        // Deny any client if rate more 50 requests per one minute.
-        ['deny', 'limit_exceeded', ['requests', '>', '50/min']],
-
-        // Permit all connections (it is first rule).
-        ['allow'],
-    ],
-
+    // Permit all connections (it is first rule).
+    ['allow'],
+],
+```
 ### Demonstration
 
 ##### Example Whois output from the database in ICANN PIR/PDR format:
