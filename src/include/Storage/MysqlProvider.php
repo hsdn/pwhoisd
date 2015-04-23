@@ -61,8 +61,6 @@ class MysqlProvider implements StorageInterface {
 			$storage['db_name']
 		);
 
-		var_dump($storage);
-
 		if ($this->db->connect_errno)
 		{
 			throw new RuntimeException('Database connection error: '.$this->db->connect_error);
