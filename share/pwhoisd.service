@@ -1,0 +1,13 @@
+[Unit]
+Description=pWhoisd HSDN PHP Whois Server Daemon %i
+StopWhenUnneeded=true
+
+[Service]
+WorkingDirectory=/path/to/phar/dir
+ExecStart=/path/to/php /path/to/phar --config=/path/to/config
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
