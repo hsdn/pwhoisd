@@ -169,7 +169,7 @@ return [
 			'storage' =>
 			[
 				// Storage type (mysql)
-				'type'    => 'mysql',
+				'type'    => 'mysql', // Could be psql/mysql.
 
 				// MySQL storage configuration
 				'db_host' => 'localhost',
@@ -305,7 +305,7 @@ return [
 
 			'storage' =>
 			[
-				'type'    => 'mysql',
+				'type'    => 'mysql', // Could be psql/mysql.
 
 				'db_host' => 'localhost',
 				'db_port' => 3306,
@@ -478,6 +478,123 @@ return [
 				'Invalid request.',
 			],
 		],
+        // FileStorage
+        [
+            'flag'    => 'pir',
+
+            'storage' =>
+            [
+                'type'    => 'file',
+                'storage' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'storage',
+
+                'queries' => [
+                    // Fetch domain information
+                    '{_request_}',
+                ],
+            ],
+
+            'format' =>
+            [
+                ['CreationDate', 'date("Y-m-d\TH:i:s\Z", strtotime({CreationDate}))'],
+                ['UpdatedDate', 'date("Y-m-d\TH:i:s\Z", strtotime({UpdatedDate}))'],
+                ['RegistryExpiryDate', 'date("Y-m-d\TH:i:s\Z", strtotime({RegistryExpiryDate}))'],
+                ['RegistrarExpiryDate', 'date("Y-m-d\TH:i:s\Z", strtotime({RegistrarExpiryDate}))'],
+                ['DomainName', 'strtoupper({DomainName})'],
+                ['NameServer'. 'strtoupper({NameServer})'],
+                ['LASTUPDATETIME', 'date("Y-m-d\TH:i:s\Z")'],
+            ],
+
+            'spacing'    => TRUE,
+            'hide_empty' => TRUE,
+
+            'fields' =>
+            [
+                ['Domain Name', 'DomainName'],
+                ['Domain ID', 'DomainID'],
+                ['Creation Date', 'CreationDate'],
+                ['Updated Date', 'UpdatedDate'],
+                ['Registry Expiry Date', 'RegistryExpiryDate'],
+                ['Registrar Expiry Date', 'RegistrarExpiryDate'],
+                ['Trademark Name', 'TrademarkName'],
+                ['Trademark Date', 'TrademarkDate'],
+                ['Trademark Country', 'TrademarkCountry'],
+                ['Trademark Number', 'TrademarkNumber'],
+                ['Sponsoring Registrar', 'SponsoringRegistrar'],
+                ['Sponsoring Registrar IANA ID', 'SponsoringRegistrarIANAID'],
+                ['WHOIS Server', 'WHOISServer'],
+                ['Referral URL', 'ReferralURL'],
+                ['Domain Status', 'DomainStatus'],
+                ['Registrant ID', 'RegistrantID'],
+                ['Registrant Name', 'RegistrantName'],
+                ['Registrant Organization', 'RegistrantOrganization'],
+                ['Registrant Street', 'RegistrantStreet'],
+                ['Registrant City', 'RegistrantCity'],
+                ['Registrant State/Province', 'RegistrantStateProvince'],
+                ['Registrant Postal Code', 'RegistrantPostalCode'],
+                ['Registrant Country', 'RegistrantCountry'],
+                ['Registrant Phone', 'RegistrantPhone'],
+                ['Registrant Phone Ext', 'RegistrantPhoneExt'],
+                ['Registrant Fax', 'RegistrantFax'],
+                ['Registrant Fax Ext', 'RegistrantFaxExt'],
+                ['Registrant Email', 'RegistrantEmail'],
+                ['Admin ID', 'AdminID'],
+                ['Admin Name', 'AdminName'],
+                ['Admin Organization', 'AdminOrganization'],
+                ['Admin Street', 'AdminStreet'],
+                ['Admin City', 'AdminCity'],
+                ['Admin State/Province', 'AdminStateProvince'],
+                ['Admin Postal Code', 'AdminPostalCode'],
+                ['Admin Country', 'AdminCountry'],
+                ['Admin Phone', 'AdminPhone'],
+                ['Admin Phone Ext', 'AdminPhoneExt'],
+                ['Admin Fax', 'AdminFax'],
+                ['Admin Fax Ext', 'AdminFaxExt'],
+                ['Admin Email', 'AdminEmail'],
+                ['Tech ID', 'TechID'],
+                ['Tech Name', 'TechName'],
+                ['Tech Organization', 'TechOrganization'],
+                ['Tech Street', 'TechStreet'],
+                ['Tech City', 'TechCity'],
+                ['Tech State/Province', 'TechStateProvince'],
+                ['Tech Postal Code', 'TechPostalCode'],
+                ['Tech Country', 'TechCountry'],
+                ['Tech Phone', 'TechPhone'],
+                ['Tech Phone Ext', 'TechPhoneExt'],
+                ['Tech Fax', 'TechFax'],
+                ['Tech Fax Ext', 'TechFaxExt'],
+                ['Tech Email', 'TechEmail'],
+                ['Billing ID', 'BillingID'],
+                ['Billing Name', 'BillingName'],
+                ['Billing Organization', 'BillingOrganization'],
+                ['Billing Street', 'BillingStreet'],
+                ['Billing City', 'BillingCity'],
+                ['Billing State/Province', 'BillingStateProvince'],
+                ['Billing Postal Code', 'BillingPostalCode'],
+                ['Billing Country', 'BillingCountry'],
+                ['Billing Phone', 'BillingPhone'],
+                ['Billing Phone Ext', 'BillingPhoneExt'],
+                ['Billing Fax', 'BillingFax'],
+                ['Billing Fax Ext', 'BillingFaxExt'],
+                ['Billing Email', 'BillingEmail'],
+                ['Name Server', 'NameServer'],
+                ['DNSSEC', 'DNSSEC'],
+                ['DNSSEC DS Data', 'DNSSECDATA'],
+                ['DS Maximum Signature Life', 'DSMaximumSignatureLife'],
+
+                // This text shown only an empty data-field 'DomainName'
+                ['NOT FOUND', 'DomainName', FALSE],
+
+                // Footer message anchor (shown only if the data-field 'DomainName' is exists and not empty)
+                ['{%footer_pir%}', 'DomainName', TRUE],
+            ],
+
+            'invalid_request' =>
+            [
+                '{%header_ripn%}',
+                'Invalid request.',
+            ],
+        ],
+
 
 		// Help
 		[
