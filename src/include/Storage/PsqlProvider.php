@@ -3,6 +3,7 @@
  * HSDN PHP Whois Server Daemon
  *
  * @author      HSDN Team
+ * @author      HiQDev Team
  * @copyright   (c) 2015, Information Networks Ltd.
  * @link        http://www.hsdn.org
  */
@@ -43,7 +44,7 @@ class PsqlProvider implements StorageInterface {
     /**
      * Assigning class properties and connect to Database.
      *
-     * @throws  \RuntimeException  If MySQL Connection error
+     * @throws  \RuntimeException  If PgSQL Connection error
      * @param   object  $client   Instance of \pWhoisd\Client class
      * @param   array   $storage  Storage configuration segment
      * @return  void
@@ -170,5 +171,4 @@ class PsqlProvider implements StorageInterface {
 
         return !preg_match('/\{\w+\}/', $string) ? $string : FALSE;
     }
-
 }

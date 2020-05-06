@@ -3,6 +3,7 @@
  * HSDN PHP Whois Server Daemon
  *
  * @author      HSDN Team
+ * @author      HiQDev
  * @copyright   (c) 2015, Information Networks Ltd.
  * @link        http://www.hsdn.org
  */
@@ -44,7 +45,7 @@ class FileProvider implements StorageInterface
     /**
      * Assigning class properties and connect to Database.
      *
-     * @throws  \RuntimeException  If MySQL Connection error
+     * @throws  \RuntimeException  If Repository does not exist
      * @param   object  $client   Instance of \pWhoisd\Client class
      * @param   array   $storage  Storage configuration segment
      * @return  void
@@ -64,8 +65,6 @@ class FileProvider implements StorageInterface
     }
 
     /**
-     * Closes Database connection.
-     *
      * @return  void
      */
     public function __destruct()
@@ -96,7 +95,7 @@ class FileProvider implements StorageInterface
     }
 
     /**
-     * Query database
+     * Find file with data
      *
      * @param   string  $table   Database table name
      * @return  void
@@ -120,9 +119,9 @@ class FileProvider implements StorageInterface
     }
 
     /**
-     * Process SQL query string.
+     * Process query string.
      *
-     * @param   string  $string   SQL query string
+     * @param   string  $string
      * @return  string|bool
      */
     private function process_query_string($string)
@@ -151,6 +150,12 @@ class FileProvider implements StorageInterface
         return !preg_match('/\{\w+\}/', $string) ? $string : FALSE;
     }
 
+    /**
+     * Calculate path to file
+     *
+     * @param string $md5
+     * @return string
+     */
     private function colculatePath($md5)
     {
         return substr($md5, 0, 1) . DIRECTORY_SEPARATOR . substr($md5, 1, 1) . DIRECTORY_SEPARATOR . $md5;
