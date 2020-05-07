@@ -131,11 +131,9 @@ class PdoProvider implements StorageInterface {
         $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
         try {
             $sth = $this->db->query($query);
-            /***
             if ($sth->errorCode() !== '00000') {
                 throw new RuntimeException("Error in sql statement");
             }
-            ***/
         } finally {
             $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, 0);
         }
